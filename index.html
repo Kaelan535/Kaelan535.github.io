@@ -1,319 +1,256 @@
 <!DOCTYPE html>
-<html lang="en-NZ">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kiwi Plumbing Services | Wellington Plumber – Leaks, Hot Water, Drains</title>
-<meta name="description" content="Licensed Wellington plumber. Leaks, hot water cylinders, blocked drains and bathroom installs. Upfront pricing, no call-out surprises. Call or get a free quote.">
-<meta name="theme-color" content="#0f3d2e">
-<!--
-  EDIT BEFORE LAUNCH – search this file for "PLACEHOLDER" and replace:
-  owner name, phone, email, licence number, hours, address/ABN, review text, domain (schema url).
--->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Plumber",
-  "name": "Kiwi Plumbing Services Limited",
-  "description": "Licensed Wellington plumbers for leaks, hot water cylinders, blocked drains and bathroom installs.",
-  "telephone": "+64XXXXXXXXX",
-  "email": "hello@kiwiplumbing.example",
-  "url": "https://www.kiwiplumbing.example",
-  "priceRange": "$$",
-  "areaServed": { "@type": "City", "name": "Wellington" },
-  "address": { "@type": "PostalAddress", "addressLocality": "Wellington", "addressCountry": "NZ" }
-}
-</script>
+<title>Kaelan Moodley | Electrical and Electronics Engineering Student</title>
+<meta name="description" content="Portfolio of Kaelan Moodley, a first-year Electrical and Electronics Engineering student at Victoria University of Wellington. Robotics, sensors, electronics and testing projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#0f3d2e; --navy-2:#1b5a43; --orange:#f2b705; --orange-d:#d9a200;
-  --ink:#14261f; --muted:#5b6678; --bg:#f4f8f5; --white:#fff; --line:#dde8e1;
-  --r:14px;
-}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--white);padding-bottom:76px}
-img,svg{max-width:100%}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-h1,h2,h3{line-height:1.15;letter-spacing:-.01em}
-h2{font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:12px}
-section{padding:56px 0}
-.lead{color:var(--muted);max-width:60ch;margin-bottom:28px}
+  :root {
+    --paper: #EDF0EA;
+    --grid: #D3DAD0;
+    --ink: #17231F;
+    --muted: #55655E;
+    --mask: #0E5A43;
+    --mask-soft: #D5E6DC;
+    --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  a { color: var(--mask); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--mask); outline-offset: 3px; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
 
-/* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;font-weight:700;font-size:1.05rem;text-decoration:none;border:2px solid transparent;cursor:pointer;font-family:inherit;transition:background .15s,transform .15s}
-.btn:active{transform:scale(.98)}
-.btn-call{background:var(--orange);color:#1a1004}
-.btn-call:hover{background:var(--orange-d)}
-.btn-quote{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
-.btn-quote:hover{background:rgba(255,255,255,.12)}
+  header.site { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; flex-wrap: wrap; gap: 8px; }
+  header.site .mark { font-family: var(--display); font-weight: 700; font-size: 1.25rem; text-decoration: none; color: var(--ink); }
+  nav a { margin-left: 22px; color: var(--ink); text-decoration: none; font-weight: 500; }
+  nav a:hover { color: var(--mask); text-decoration: underline; }
 
-/* top bar */
-header{background:var(--navy);color:#fff}
-.bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.logo{font-weight:800;font-size:1.15rem;text-decoration:none;display:flex;align-items:center;gap:10px}
-.logo span{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--orange);color:#1a1004}
-.bar a.tel{font-weight:700;text-decoration:none;display:none}
+  .hero { padding: 64px 0 32px; }
+  .hero .tag { font-weight: 500; color: var(--mask); margin: 0 0 8px; }
+  .hero h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(2.5rem, 8.5vw, 5rem);
+    line-height: 1; letter-spacing: -0.03em; margin: 0 0 20px;
+  }
+  .hero p.lede { font-size: 1.2rem; max-width: 36em; margin: 0 0 24px; }
+  .trace { width: 100%; height: 90px; display: block; margin: 8px 0 28px; }
+  .trace path {
+    fill: none; stroke: var(--mask); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round;
+    stroke-dasharray: 2400; stroke-dashoffset: 2400;
+    animation: draw 2.4s ease-out 0.2s forwards;
+  }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .trace path { animation: none; stroke-dashoffset: 0; }
+    html { scroll-behavior: auto; }
+  }
+  .btn { display: inline-block; padding: 12px 22px; background: var(--mask); color: #fff; text-decoration: none; font-weight: 500; border-radius: 4px; }
+  .btn:hover { background: #0a4634; }
+  .btn.alt { background: transparent; color: var(--mask); border: 2px solid var(--mask); margin-left: 8px; }
+  .btn.alt:hover { background: var(--mask-soft); }
 
-/* hero */
-.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff;position:relative;overflow:hidden;padding:36px 0 64px}
-.hero h1{font-size:clamp(2.1rem,8.5vw,3.8rem);max-width:15ch;margin-bottom:16px}
-.hero p{font-size:1.15rem;max-width:44ch;color:#d5deec;margin-bottom:28px}
-.cta{display:flex;flex-direction:column;gap:12px;max-width:340px}
-.hero small{display:block;margin-top:18px;color:#aebbd1;font-size:.95rem}
-.pipe{position:absolute;right:-30px;bottom:-10px;width:min(60%,420px);opacity:.9;pointer-events:none}
+  section { padding: 52px 0 4px; }
+  h2 { font-family: var(--display); font-size: 2rem; letter-spacing: -0.02em; margin: 0 0 22px; }
+  p { margin: 0 0 14px; max-width: 40em; }
 
-/* services */
-.grid{display:grid;gap:14px}
-.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px}
-.card h3{font-size:1.15rem;margin-bottom:6px}
-.card p{color:var(--muted);font-size:.98rem}
-.card.urgent{background:var(--navy);border-color:var(--navy);color:#fff}
-.card.urgent p{color:#d5deec}
-.ico{width:40px;height:40px;margin-bottom:10px;color:var(--orange)}
+  .entry { background: var(--paper); border: 2px solid var(--ink); padding: 24px; margin-bottom: 22px; }
+  .entry h3 { font-family: var(--display); font-size: 1.4rem; margin: 0 0 4px; }
+  .entry .meta { color: var(--muted); font-size: 0.95rem; margin: 0 0 14px; }
+  .entry ul { margin: 0; padding-left: 20px; }
+  .entry li { margin-bottom: 6px; }
+  .entry.plain { border-width: 1px; border-color: var(--muted); }
 
-/* why */
-.why{background:var(--bg)}
-.ticks{list-style:none;padding:0;display:grid;gap:12px;margin-bottom:32px}
-.ticks li{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
-.ticks svg{flex:none;width:24px;height:24px;color:var(--orange);margin-top:2px}
-.ticks b{display:block}
-.ticks span{color:var(--muted);font-size:.97rem}
-.reviews{background:#fff;border:2px dashed var(--line);border-radius:var(--r);padding:20px}
-.reviews h3{margin-bottom:6px}
-.stars{color:var(--orange);letter-spacing:2px;font-size:1.1rem}
-blockquote{margin:10px 0 0;padding-left:14px;border-left:4px solid var(--orange)}
-blockquote cite{display:block;color:var(--muted);font-size:.9rem;margin-top:4px;font-style:normal}
-/* PLACEHOLDER: paste Google reviews embed or real quotes into #google-reviews */
+  .skill-group { margin-bottom: 18px; }
+  .skill-group h3 { font-size: 1rem; font-weight: 500; color: var(--mask); margin: 0 0 8px; }
+  .skills { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0; list-style: none; }
+  .skills li { background: var(--mask-soft); padding: 6px 14px; border-radius: 999px; font-size: 0.95rem; }
 
-/* steps */
-.steps{list-style:none;padding:0;display:grid;gap:0;counter-reset:s}
-.steps li{position:relative;padding:0 0 28px 64px;counter-increment:s}
-.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;display:grid;place-items:center}
-.steps li::after{content:"";position:absolute;left:21px;top:48px;bottom:4px;width:3px;background:var(--orange);border-radius:2px}
-.steps li:last-child{padding-bottom:0}
-.steps li:last-child::after{display:none}
-.steps h3{margin-bottom:4px}
-.steps p{color:var(--muted)}
+  .list-plain { padding-left: 20px; margin: 0; }
+  .list-plain li { margin-bottom: 6px; }
 
-/* area */
-.area{background:var(--navy);color:#fff}
-.area .lead{color:#c3cee0}
-.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0}
-.chips li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 14px;font-size:.95rem}
+  footer { padding: 52px 0 48px; }
+  footer p { margin: 0 0 8px; }
+  .small { color: var(--muted); font-size: 0.9rem; }
 
-/* form */
-form{display:grid;gap:16px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px;max-width:640px}
-label{font-weight:600;display:grid;gap:6px;font-size:.98rem}
-input,textarea{font:inherit;padding:14px;border:1.5px solid #b9c3d3;border-radius:10px;background:#fff;color:var(--ink);width:100%}
-input:focus,textarea:focus{border-color:var(--navy);outline:3px solid rgba(242,183,5,.45)}
-textarea{min-height:120px;resize:vertical}
-.note{color:var(--muted);font-size:.9rem}
-#msg{font-weight:600;color:#0a6b3a;display:none}
-.fp{position:absolute;left:-9999px}
-
-/* footer */
-footer{background:var(--navy);color:#c3cee0;padding:40px 0 24px;font-size:.97rem}
-footer h3{color:#fff;margin-bottom:8px;font-size:1.05rem}
-footer .cols{display:grid;gap:24px}
-footer a{color:#fff}
-.legal{margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);font-size:.88rem}
-
-/* sticky call bar (mobile) */
-.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(15,61,46,.97);box-shadow:0 -4px 16px rgba(0,0,0,.2)}
-.sticky .btn{flex:1;min-height:50px}
-.sticky .btn-quote{flex:.7}
-
-@media(min-width:720px){
-  body{padding-bottom:0}
-  .sticky{display:none}
-  .bar a.tel{display:inline}
-  .cta{flex-direction:row;max-width:none}
-  .hero{padding:64px 0 96px}
-  .grid{grid-template-columns:repeat(3,1fr)}
-  .ticks{grid-template-columns:1fr 1fr}
-  footer .cols{grid-template-columns:repeat(3,1fr)}
-  section{padding:80px 0}
-}
+  @media (max-width: 560px) {
+    .btn.alt { margin-left: 0; margin-top: 10px; }
+    nav a { margin-left: 0; margin-right: 16px; }
+    .entry { padding: 18px; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap bar">
-    <a class="logo" href="#top" aria-label="Kiwi Plumbing Services home"><span aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C9 7 6 10.5 6 14.5a6 6 0 0012 0C18 10.5 15 7 12 2z"/></svg></span>Kiwi Plumbing Services</a>
-    <a class="tel" href="tel:+64XXXXXXXXX">[phone number]</a> 
-  </div>
-</header>
+<div class="wrap">
+  <header class="site">
+    <a class="mark" href="#top">Kaelan Moodley</a>
+    <nav aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<main id="top">
-<div class="hero">
-  <div class="wrap">
-    <h1>Wellington plumbing, done properly.</h1>
-    <p>Locally owned and fully licensed. You get a clear price before we start, and no surprises on the bill.</p>
-    <div class="cta">
-      <a class="btn btn-call" href="tel:+64XXXXXXXXX">Call now</a>
-      <a class="btn btn-quote" href="#quote">Get a free quote</a>
+  <main id="top">
+    <div class="hero">
+      <p class="tag">Electrical and Electronics Engineering Student</p>
+      <h1>Kaelan Moodley</h1>
+      <p class="lede">First-year engineering student at Victoria University of Wellington. I build, test and debug sensor-based robotics and electronics projects, and I'm interested in AI and automation.</p>
+
+      <svg class="trace" viewBox="0 0 900 90" preserveAspectRatio="none" role="img" aria-label="A square wave turning into a smooth sine wave">
+        <path d="M0 70 H60 V20 H120 V70 H180 V20 H240 V70 H300 V20 H360 V70 H420
+                 C450 70 460 20 495 20 S540 70 570 70 S615 20 645 20 S690 70 720 70 S765 20 795 20 S840 70 870 70 H900"/>
+      </svg>
+
+      <a class="btn" href="#projects">See my projects</a>
+      <a class="btn alt" href="#contact">Get in touch</a>
     </div>
-    <small>Locally owned, fully licensed and rated 5 stars by customers on Google.</small>
-  </div>
-  <svg class="pipe" viewBox="0 0 400 220" fill="none" aria-hidden="true">
-    <path d="M400 40H250a30 30 0 00-30 30v50a30 30 0 01-30 30H90a30 30 0 00-30 30v40" stroke="#f2b705" stroke-width="22" stroke-linecap="round"/>
-    <path d="M400 40H250a30 30 0 00-30 30v50a30 30 0 01-30 30H90a30 30 0 00-30 30v40" stroke="#0f3d2e" stroke-opacity=".35" stroke-width="6" stroke-linecap="round"/>
-    <circle cx="60" cy="215" r="14" fill="#f2b705"/>
-  </svg>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>I'm a first-year Electrical and Electronics Engineering student with hands-on experience building, testing and debugging sensor-based robotics and electronics projects.</p>
+      <p>I like checking how a system behaves under different conditions, and I'm comfortable working from wiring diagrams and existing code. I'm also interested in AI and automation, and how they can solve real problems for people and businesses.</p>
+
+      <h3 style="font-family:var(--display);margin:28px 0 8px;">Education</h3>
+      <div class="entry plain">
+        <strong>Victoria University of Wellington</strong>
+        <p class="meta" style="margin-bottom:10px;">Bachelor of Engineering with Honours, Electrical and Electronics Engineering &middot; Expected graduation 2030</p>
+        <ul>
+          <li>Relevant coursework: MECA130, EEEN104, COMP102, ENGR101</li>
+          <li>Completed ENGR222, a second-year mathematics course, during first-year study</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <article class="entry">
+        <h3>MECA130 Maze-Navigation Robot</h3>
+        <p class="meta">Group project &middot; August 2026 to present &middot; C/C++, VEX robot</p>
+        <ul>
+          <li>Modify, debug and test C/C++ code for a VEX robot using bump, optical and distance sensors, motors and an LED touch sensor.</li>
+          <li>Work on cell-centering, colour detection, navigation logic and collision avoidance, investigating sensing problems through iterative testing.</li>
+          <li>Contribute to mission functionality: hazard avoidance, survivor and cache collection, reaching the goal and returning to the start.</li>
+          <li>Working with a breadth-first search approach to find the shortest return route.</li>
+          <li>Record changes in a shared Git repository.</li>
+        </ul>
+        <!-- TODO: add a photo or short video of the robot -->
+      </article>
+
+      <article class="entry">
+        <h3>Ruby Movement Detection System</h3>
+        <p class="meta">Group project with two other students &middot; May to June 2026</p>
+        <ul>
+          <li>Camera-based system that detects movement of a digitally marked region, alerts the user and records when an object was moved.</li>
+          <li>Tested the system under dim, bright and blinking-light conditions.</li>
+          <li>Built the on-screen alert display (red screen and notification message), event timer and time-stamped logging, using AI-assisted coding.</li>
+          <li>Worked with the team to track the marked region under changing lighting.</li>
+          <li>Collaborated through a shared Git repository and wrote an individual project report.</li>
+        </ul>
+        <!-- TODO: add a screenshot or demo clip -->
+      </article>
+
+      <article class="entry">
+        <h3>Arduino Electronics Projects</h3>
+        <p class="meta">Personal learning &middot; Ongoing &middot; Freenove Ultimate Starter Kit</p>
+        <ul>
+          <li>Completed introductory projects to build practical electronics knowledge.</li>
+          <li>Assembled breadboard circuits from wiring diagrams, including an RGB LED circuit with three potentiometers controlling the red, green and blue channels.</li>
+          <li>Used example programs to explore how electronic components interact with programmed behaviour.</li>
+        </ul>
+        <!-- TODO: add a photo of the RGB LED circuit -->
+      </article>
+    </section>
+
+    <section id="skills">
+      <h2>Technical skills</h2>
+      <div class="skill-group">
+        <h3>Programming</h3>
+        <ul class="skills"><li>C/C++ (modifying and debugging existing code)</li><li>Basic independent programming</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3>Electronics and hardware</h3>
+        <ul class="skills"><li>Breadboard circuit assembly</li><li>Basic wiring</li><li>Following wiring diagrams</li><li>Basic multimeter use</li><li>Oscilloscopes and function generators (introductory lab experience)</li><li>Arduino</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3>Software and tools</h3>
+        <ul class="skills"><li>Git (shared repositories)</li><li>Logisim (introductory digital logic)</li><li>RDWorks V8 (laser cutting and engraving)</li></ul>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Work experience</h2>
+
+      <article class="entry plain">
+        <h3>Woolworths</h3>
+        <p class="meta">Permanent Part-Time Team Member &middot; March 2025 to present</p>
+        <ul>
+          <li>Work across replenishment, receiving, stockroom operations, deli, merchandising, online fulfilment and checkouts.</li>
+          <li>Follow established procedures while handling stock, fulfilling online orders and serving customers.</li>
+          <li>Adapt to different responsibilities and operational requirements across the store.</li>
+          <li>Have supervisory experience and alcohol-sale authorisation.</li>
+        </ul>
+      </article>
+
+      <article class="entry plain">
+        <h3>Sky Stadium</h3>
+        <p class="meta">Casual Hospitality Team Member &middot; August 2024 to present</p>
+        <ul>
+          <li>Work across food preparation, cooking, customer service and bartending.</li>
+          <li>Completed Hospy Savvy training to work in corporate hospitality suites.</li>
+          <li>Adapt to changing tasks and customer needs in a fast-paced event environment.</li>
+        </ul>
+      </article>
+
+      <article class="entry plain">
+        <h3>Noel Leeming</h3>
+        <p class="meta">Gateway Work Experience &middot; June to July 2024</p>
+        <ul><li>Introductory retail experience assisting customers on the shop floor and at checkouts.</li></ul>
+      </article>
+    </section>
+
+    <section id="training">
+      <h2>Training and licences</h2>
+      <ul class="list-plain">
+        <li>Full New Zealand car driver's licence</li>
+        <li>New Zealand learner motorcycle licence</li>
+        <li>Alcohol-sale authorisation through Woolworths employment</li>
+        <li>Workplace safety and food safety training</li>
+        <li>Previously completed first aid training (certification has expired)</li>
+      </ul>
+      <p style="margin-top:14px;">References available on request.</p>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:kaelanmoodley391@gmail.com">kaelanmoodley391@gmail.com</a></p>
+    <p>GitHub: <a href="https://github.com/Kaelan535">Kaelan535</a></p>
+    <p>Based in Wellington, New Zealand.</p>
+    <!-- TODO: add your LinkedIn link here if you make a profile -->
+    <p class="small">&copy; 2026 Kaelan Moodley</p>
+  </footer>
 </div>
 
-<section id="services">
-  <div class="wrap">
-    <h2>What we can fix</h2>
-    <p class="lead">From a dripping tap to a full bathroom. If it carries water, we can look after it.</p>
-    <div class="grid">
-      <div class="card urgent">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
-        <h3>Urgent repairs</h3><p>Burst pipe or leaking cylinder? Call us and we’ll get to you as quickly as we can.</p>
-      </div>
-      <div class="card">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C9 7 6 10.5 6 14.5a6 6 0 0012 0C18 10.5 15 7 12 2z"/></svg>
-        <h3>Leaks and repairs</h3><p>Taps, pipes, toilets and under-sink leaks found and fixed before they cause damage.</p>
-      </div>
-      <div class="card">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="3"/><path d="M10 8h4M10 12h4"/></svg>
-        <h3>Hot water cylinders</h3><p>Repairs, replacements and new installs, with honest advice on what suits your home.</p>
-      </div>
-      <div class="card">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10a3 3 0 010 6H8M8 13v8M12 17v4"/></svg>
-        <h3>Blocked drains</h3><p>Slow sinks, smelly drains and blocked toilets cleared and left tidy.</p>
-      </div>
-      <div class="card">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18v3a5 5 0 01-5 5H8a5 5 0 01-5-5zM6 12V6a2 2 0 012-2h1"/></svg>
-        <h3>Bathroom installs</h3><p>New showers, vanities, toilets and baths. We’ll work with your builder or tiler.</p>
-      </div>
-      <div class="card">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 005.4 5.4L11 20.8a2.1 2.1 0 01-3-3z M7 17l-3 3"/></svg>
-        <h3>Something else?</h3><p>Dishwashers, washing machines, outdoor taps. Just ask and we’ll tell you if we can help.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="why" id="why">
-  <div class="wrap">
-    <h2>Why Wellington locals choose us</h2>
-    <p class="lead">We’re a new business, so we work hard to earn your trust on every job.</p>
-    <ul class="ticks">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Licensed and registered</b><span>Registered plumber, licence no. PLACEHOLDER-00000.</span></div></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Fully insured</b><span>You’re covered if something goes wrong.</span></div></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Upfront pricing</b><span>You’ll know the price before we start.</span></div></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg><div><b>No call-out surprises</b><span>No hidden fees and no mystery extras on the invoice.</span></div></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Workmanship guarantee</b><span>If our work isn’t right, we’ll come back and fix it.</span></div></li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg><div><b>Local owner-operator</b><span>You deal with Logan directly, not a call centre.</span></div></li>
-    </ul>
-
-    <div class="reviews" id="google-reviews">
-      <h3>What customers say</h3>
-      <p class="note">From Google reviews</p>
-      <blockquote>
-        Logan is a great plumber, very happy with his work every time, would never go anywhere else. Highly recommend Kiwi Plumbing!!
-        <cite>Aleisha Price</cite>
-      </blockquote>
-      <blockquote>
-        Great service from these guys, replaced our leaking hot water cylinder very quickly before it made a mess. Very professional and tidy job. Price was competitive, workmanship was second to none. Highly recommend to everyone.
-        <cite>Lee Zhang – hot water cylinder replacement</cite>
-      </blockquote>
-      <!-- To add more later: copy a <blockquote> above, or replace this box with a Google reviews widget. -->
-    </div>
-  </div>
-</section>
-
-<section id="how">
-  <div class="wrap">
-    <h2>How it works</h2>
-    <p class="lead">Three steps, no fuss.</p>
-    <ol class="steps">
-      <li><h3>Call or message us</h3><p>Tell us what’s going on. We’ll ask a few questions and book a time that suits you.</p></li>
-      <li><h3>Get a clear quote</h3><p>You get a fixed price up front. You only say yes if you’re happy with it.</p></li>
-      <li><h3>We fix it</h3><p>We do the job properly, clean up after ourselves and back our work with a guarantee.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="area" id="area">
-  <div class="wrap">
-    <h2>Where we work</h2>
-    <p class="lead">We cover Wellington city and nearby suburbs. Not sure if you’re in range? Just ask.</p>
-    <ul class="chips"><!-- PLACEHOLDER: edit suburbs -->
-      <li>Wellington Central</li><li>Te Aro</li><li>Thorndon</li><li>Kelburn</li><li>Karori</li><li>Newtown</li><li>Island Bay</li><li>Kilbirnie</li><li>Miramar</li><li>Hataitai</li><li>Johnsonville</li><li>Khandallah</li><li>Tawa</li>
-    </ul>
-  </div>
-</section>
-
-<section id="quote">
-  <div class="wrap">
-    <h2>Get a free quote</h2>
-    <p class="lead">Tell us about the job and we’ll get back to you as soon as we can.</p>
-    <form id="qf" novalidate>
-      <label>Your name<input name="name" autocomplete="name" required></label>
-      <label>Phone number<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
-      <label>Job address<input name="address" autocomplete="street-address" required></label>
-      <label>What needs doing?<textarea name="job" required placeholder="e.g. Hot water cylinder is leaking in the hallway cupboard"></textarea></label>
-      <input class="fp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn btn-call" type="submit">Send my quote request</button>
-      <p id="msg" role="status"></p>
-      <p class="note">Prefer to talk? <a href="tel:+64XXXXXXXXX">Call [phone number]</a>.</p>
-    </form>
-  </div>
-</section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="cols">
-      <div><h3>Kiwi Plumbing Services</h3><p>Wellington, New Zealand</p></div>
-      <div><h3>Get in touch</h3>
-        <p>Phone: <a href="tel:+64XXXXXXXXX">[phone number]</a></p>
-        <p>Email: <a href="mailto:hello@kiwiplumbing.example">hello@kiwiplumbing.example</a></p><!-- PLACEHOLDER -->
-      </div>
-      <div><h3>Hours</h3>
-        <p>[opening hours]</p>
-      </div>
-    </div>
-    <p class="legal">Registered plumber, licence no. PLACEHOLDER-00000. NZBN: PLACEHOLDER. Fully insured. &copy; <span id="yr">2026</span> Kiwi Plumbing Services.</p>
-  </div>
-</footer>
-
-<div class="sticky" role="region" aria-label="Quick contact">
-  <a class="btn btn-call" href="tel:+64XXXXXXXXX">Call now</a>
-  <a class="btn btn-quote" href="#quote">Free quote</a>
-</div>
-
-<script>
-(function(){
-  document.getElementById('yr').textContent=new Date().getFullYear();
-  var f=document.getElementById('qf'),m=document.getElementById('msg');
-  var TO='hello@kiwiplumbing.example'; // PLACEHOLDER: same as footer email
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var d=new FormData(f);
-    if(d.get('website')) return;
-    var ok=true;
-    ['name','phone','address','job'].forEach(function(k){
-      var el=f.elements[k], bad=!el.value.trim();
-      el.setAttribute('aria-invalid',bad);
-      el.style.borderColor=bad?'#c0392b':'';
-      if(bad) ok=false;
-    });
-    if(!ok){m.style.display='block';m.style.color='#c0392b';m.textContent='Please fill in every box so we can get back to you.';return;}
-    var body='Name: '+d.get('name')+'\nPhone: '+d.get('phone')+'\nAddress: '+d.get('address')+'\n\nJob:\n'+d.get('job');
-    m.style.display='block';m.style.color='#0a6b3a';
-    m.textContent='Opening your email app to send the request. If nothing opens, please call us instead.';
-    location.href='mailto:'+TO+'?subject='+encodeURIComponent('Quote request from '+d.get('name'))+'&body='+encodeURIComponent(body);
-  });
-})();
-</script>
 </body>
 </html>
