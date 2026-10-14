@@ -9,13 +9,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  /* Colour themes: the picker in the header switches between these */
+  :root, :root[data-theme="green"] {
+    --paper: #EDF0EA; --grid: #D3DAD0; --ink: #17231F; --muted: #55655E;
+    --mask: #0E5A43; --mask-soft: #D5E6DC; --mask-dark: #0a4634; --on-mask: #fff;
+    --edge: #A9BAB0; --wheel: #E0262A; --rider: #17231F; --tire: #17231F; --tire-edge: transparent; --smoke: #7F8F87;
+  }
+  :root[data-theme="red"] {
+    --paper: #F2EDEA; --grid: #DDD3CF; --ink: #261A19; --muted: #6A5957;
+    --mask: #B3261E; --mask-soft: #F4DAD7; --mask-dark: #8E1D17; --on-mask: #fff;
+    --edge: #CDB7B3; --wheel: #E0262A; --rider: #261A19; --tire: #261A19; --smoke: #948381;
+  }
+  :root[data-theme="blue"] {
+    --paper: #EBEFF3; --grid: #D2DAE3; --ink: #16202B; --muted: #566472;
+    --mask: #1F4E9C; --mask-soft: #D6E2F5; --mask-dark: #173B78; --on-mask: #fff;
+    --edge: #B2BFD6; --wheel: #2F6FDB; --rider: #16202B; --tire: #16202B; --smoke: #7C8A9A;
+  }
+  :root[data-theme="mono"] {
+    --paper: #F1F1EF; --grid: #DADAD8; --ink: #111111; --muted: #5E5E5E;
+    --mask: #222222; --mask-soft: #E2E2E0; --mask-dark: #000000; --on-mask: #fff;
+    --edge: #BDBDBD; --wheel: #E0262A; --rider: #111111; --tire: #111111; --smoke: #8A8A8A;
+  }
+  :root[data-theme="night"] {
+    --paper: #12171A; --grid: #1E2528; --ink: #E6ECE9; --muted: #9AA7A1;
+    --mask: #5FD3A8; --mask-soft: #1C2D27; --mask-dark: #86E3C0; --on-mask: #0B1210;
+    --edge: #3B4650; --wheel: #E0262A; --rider: #7E948A; --tire: #0B0F10; --tire-edge: #6B7A74; --smoke: #A5B0AB;
+  }
   :root {
-    --paper: #EDF0EA;
-    --grid: #D3DAD0;
-    --ink: #17231F;
-    --muted: #55655E;
-    --mask: #0E5A43;
-    --mask-soft: #D5E6DC;
     --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
     --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
@@ -37,12 +57,22 @@
   a:focus-visible, button:focus-visible { outline: 3px solid var(--mask); outline-offset: 3px; }
   .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
 
-  header.site { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; flex-wrap: wrap; gap: 8px; }
+  header.site { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; flex-wrap: wrap; gap: 8px 16px; }
   header.site .mark { font-family: var(--display); font-weight: 700; font-size: 1.25rem; text-decoration: none; color: var(--ink); }
   nav a { margin-left: 22px; color: var(--ink); text-decoration: none; font-weight: 500; }
   nav a:hover { color: var(--mask); text-decoration: underline; }
 
-  .hero { padding: 64px 0 32px; }
+  .themes { display: flex; gap: 8px; align-items: center; width: 100%; justify-content: flex-end; }
+  .themes .lab { font-size: 0.85rem; color: var(--muted); margin-right: 4px; }
+  .themes button { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--ink); padding: 0; cursor: pointer; }
+  .themes button[aria-pressed="true"] { outline: 3px solid var(--mask); outline-offset: 2px; }
+  .themes button[data-theme="green"] { background: #0E5A43; }
+  .themes button[data-theme="red"] { background: #B3261E; }
+  .themes button[data-theme="blue"] { background: #1F4E9C; }
+  .themes button[data-theme="mono"] { background: linear-gradient(135deg, #111 50%, #fff 50%); }
+  .themes button[data-theme="night"] { background: #12171A; border-color: #9AA7A1; }
+
+  .hero { padding: 40px 0 32px; }
   .hero .tag { font-weight: 500; color: var(--mask); margin: 0 0 8px; }
   .hero h1 {
     font-family: var(--display); font-weight: 700;
@@ -50,19 +80,11 @@
     line-height: 1; letter-spacing: -0.03em; margin: 0 0 20px;
   }
   .hero p.lede { font-size: 1.2rem; max-width: 36em; margin: 0 0 24px; }
-  .trace { width: 100%; height: 90px; display: block; margin: 8px 0 28px; }
-  .trace path {
-    fill: none; stroke: var(--mask); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round;
-    stroke-dasharray: 2400; stroke-dashoffset: 2400;
-    animation: draw 2.4s ease-out 0.2s forwards;
-  }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
   @media (prefers-reduced-motion: reduce) {
-    .trace path { animation: none; stroke-dashoffset: 0; }
     html { scroll-behavior: auto; }
   }
-  .btn { display: inline-block; padding: 12px 22px; background: var(--mask); color: #fff; text-decoration: none; font-weight: 500; border-radius: 4px; }
-  .btn:hover { background: #0a4634; }
+  .btn { display: inline-block; padding: 12px 22px; background: var(--mask); color: var(--on-mask); text-decoration: none; font-weight: 500; border-radius: 4px; }
+  .btn:hover { background: var(--mask-dark); }
   .btn.alt { background: transparent; color: var(--mask); border: 2px solid var(--mask); margin-left: 8px; }
   .btn.alt:hover { background: var(--mask-soft); }
 
@@ -93,7 +115,35 @@
     .btn.alt { margin-left: 0; margin-top: 10px; }
     nav a { margin-left: 0; margin-right: 16px; }
     .entry { padding: 18px; }
+    .themes { justify-content: flex-start; }
   }
+  /* Hero: neural-network maze with a rider collecting interests */
+  .net { width: 100%; height: auto; display: block; margin: 12px 0 28px; overflow: visible; }
+  .net .edge { stroke: var(--edge); stroke-width: 1; opacity: 0.6; }
+  .net .node { fill: var(--paper); stroke: var(--edge); stroke-width: 1.5; }
+  .net .start { fill: var(--mask); }
+  .net .trail { fill: none; stroke: var(--mask); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .net .ring { fill: var(--paper); stroke: var(--muted); stroke-width: 2; }
+  .net .icon { fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .net .lbl { font: 500 13px var(--body); fill: var(--ink); text-anchor: middle; opacity: 0; transition: opacity 0.4s; paint-order: stroke; stroke: var(--paper); stroke-width: 4px; }
+  .net .hub.on .ring { fill: var(--mask-soft); stroke: var(--mask); }
+  .net .hub.on .icon { stroke: var(--mask); }
+  .net .hub.on .lbl { opacity: 1; }
+  .net .puff { fill: var(--smoke); }
+  .net .tire { fill: var(--tire); stroke: var(--tire-edge); stroke-width: 1; }
+  .net .rim { fill: none; stroke: var(--wheel); stroke-width: 2.4; }
+  .net .spoke { stroke: var(--wheel); stroke-width: 1; }
+  .net .hubd { fill: #C9D1CC; }
+  .net .bw { fill: #F7F8F6; stroke: var(--tire); stroke-width: 1.3; stroke-linejoin: round; }
+  .net .bd { fill: var(--tire); }
+  .net .bred { fill: none; stroke: var(--wheel); stroke-width: 1.4; stroke-linecap: round; }
+  .net .bgold { fill: none; stroke: #C8A24A; stroke-width: 2.4; stroke-linecap: round; }
+  .net .bsil { fill: #6B7C74; stroke: var(--tire); stroke-width: 1; stroke-linejoin: round; }
+  .net .bline { fill: none; stroke: var(--tire); stroke-width: 2.6; stroke-linecap: round; }
+  .net .rlimb { fill: none; stroke: var(--rider); stroke-linecap: round; stroke-linejoin: round; }
+  .net .ri { fill: var(--rider); }
+  .net .rg { fill: var(--mask); }
+
 </style>
 </head>
 <body>
@@ -109,16 +159,21 @@
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
+    <div class="themes" role="group" aria-label="Colour theme">
+      <span class="lab">Colour</span>
+      <button type="button" data-theme="green" aria-label="Green theme" title="Green"></button>
+      <button type="button" data-theme="red" aria-label="Red theme" title="Red"></button>
+      <button type="button" data-theme="blue" aria-label="Blue theme" title="Blue"></button>
+      <button type="button" data-theme="mono" aria-label="Black and white theme" title="Black and white"></button>
+      <button type="button" data-theme="night" aria-label="Night theme" title="Night"></button>
+    </div>
   </header>
 
   <main id="top">
     <div class="hero">
       <p class="tag">Electrical and Electronics Engineering Student</p>
       <h1>Kaelan Moodley</h1>
-      <svg class="trace" viewBox="0 0 900 90" preserveAspectRatio="none" role="img" aria-label="A square wave turning into a smooth sine wave">
-        <path d="M0 70 H60 V20 H120 V70 H180 V20 H240 V70 H300 V20 H360 V70 H420
-                 C450 70 460 20 495 20 S540 70 570 70 S615 20 645 20 S690 70 720 70 S765 20 795 20 S840 70 870 70 H900"/>
-      </svg>
+      <svg id="net" class="net" viewBox="0 0 900 270" role="img" aria-label="An animated neural network maze. A muscular rider on a sport motorbike travels through nodes for gym, cars, outdoors, TV and movies, and golf."></svg>
 
       <a class="btn" href="#projects">See my projects</a>
       <a class="btn alt" href="#contact">Get in touch</a>
@@ -175,8 +230,8 @@
         <p class="meta">Personal learning &middot; Ongoing &middot; Freenove Ultimate Starter Kit</p>
         <ul>
           <li>Completed introductory projects to build practical electronics knowledge.</li>
-          <li>Automated hardware test bench: read sensor and analogue inputs, apply thresholds, report PASS/FAIL and log results over Serial, including disconnected-sensor and out-of-range cases.</li>
-          <li>Sensor monitoring and fault alarm: detect abnormal readings, trigger visual and audible alerts, and add alarm reset and recovery.</li>
+          <li>Automated hardware test bench (in progress): read sensor and analogue inputs, apply thresholds, report PASS/FAIL and log results over Serial, including disconnected-sensor and out-of-range cases.</li>
+          <li>Sensor monitoring and fault alarm (in progress): detect abnormal readings, trigger visual and audible alerts, and add alarm reset and recovery.</li>
           
         </ul>
         <!-- TODO: add a photo of the RGB LED circuit -->
@@ -259,5 +314,220 @@
   </footer>
 </div>
 
+<script>
+/* Colour theme picker (remembers the choice on this device) */
+(function () {
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll('.themes button');
+  function apply(name) {
+    root.setAttribute('data-theme', name);
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-theme') === name ? 'true' : 'false');
+    }
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  apply(saved || 'green');
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function () {
+      var name = this.getAttribute('data-theme');
+      apply(name);
+      try { localStorage.setItem('theme', name); } catch (e) {}
+    });
+  }
+})();
+</script>
+<script>
+(function () {
+  var svg = document.getElementById('net');
+  if (!svg) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ROWS = [1, 2, 0, 2, 1, 2];
+  var INTERESTS = [
+    { label: 'Gym', icon: '<path d="M-10 -3v6M-6 -6v12M-6 0h12M6 -6v12M10 -3v6"/>' },
+    { label: 'Cars', icon: '<path d="M-10 3v-4l3-1 3-4h8l3 4 3 1v4z"/><circle cx="-5" cy="4" r="2"/><circle cx="5" cy="4" r="2"/>' },
+    { label: 'Outdoors', icon: '<path d="M-11 7L-3 -5 1 1 4 -3 11 7z"/><circle cx="6" cy="-7" r="2"/>' },
+    { label: 'TV & movies', icon: '<rect x="-9" y="-2" width="18" height="10" rx="1.5"/><path d="M-9 -2l1-6h17v6M-3 -8l-2 6M3 -8l-2 6"/>' },
+    { label: 'Golf', icon: '<path d="M-1 9V-9l9 4-9 4M-9 9h18"/>' }
+  ];
+
+  /* Sport bike (white fairing, red wheels) with a broad-shouldered rider tucked in. Origin = ground contact point. */
+  var WHEEL = '<g class="spin"><circle class="tire" r="10"/><circle class="rim" r="6.8"/>' +
+    '<path class="spoke" d="M-6.8 0H6.8M0 -6.8V6.8M-4.8 -4.8L4.8 4.8M-4.8 4.8L4.8 -4.8"/><circle class="hubd" r="1.7"/></g>';
+  var RIDER =
+    '<g transform="translate(-22,-10)">' + WHEEL + '</g>' +
+    '<g transform="translate(23,-10)">' + WHEEL + '</g>' +
+    '<path class="bline" d="M-22 -10L-6 -13"/>' +
+    '<path class="bd" d="M-7 -13H11L9 -6H-5z"/>' +
+    '<path class="bw" d="M-37 -30L-21 -27L-12 -22L-30 -21z"/>' +
+    '<path class="bw" d="M-14 -22C-8 -33 6 -35 14 -31C19 -33 25 -30 29 -26C31 -23 29 -21 25 -21L8 -14L-6 -12z"/>' +
+    '<path class="bd" d="M-4 -17L14 -19L22 -24L24 -22L12 -15L-4 -14z"/>' +
+    '<path class="bred" d="M-5 -13L24 -20"/>' +
+    '<path class="bgold" d="M23 -10L22.5 -21"/>' +
+    '<path class="bsil" d="M-9 -16L-30 -25L-31 -21.5L-10 -12z"/>' +
+    '<path class="bd" d="M-25 -27L-11 -24L-13 -22L-23 -23z"/>' +
+    '<path class="rlimb" stroke-width="6.5" d="M-13 -28L-2 -22L-8 -12"/>' +
+    '<circle class="ri" cx="-9" cy="-26" r="5"/>' +
+    '<path class="rlimb" stroke-width="13" d="M-13 -29L4 -41"/>' +
+    '<circle class="ri" cx="5" cy="-42" r="7.2"/>' +
+    '<path class="rlimb" stroke-width="6.5" d="M5 -42L18 -33"/>' +
+    '<circle class="ri" cx="11" cy="-39" r="5"/>' +
+    '<circle class="rg" cx="18.5" cy="-33" r="2.6"/>' +
+    '<circle class="ri" cx="13" cy="-49" r="5.8"/>' +
+    '<path class="rg" d="M7.2 -49A5.8 5.8 0 0 1 18.8 -49z"/>';
+
+  var T_IDLE = 1500, T_TRAVEL = 9000, T_HOLD = 2400, END_GAP = 30;
+  var S = { raf: 0, t0: null, narrow: null, tilt: 0, rx: 0, ry: 0, scale: 1, next: 0, cycle: 0 };
+
+  function add(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(e);
+    return e;
+  }
+
+  function build() {
+    if (S.raf) cancelAnimationFrame(S.raf);
+    S.t0 = null; S.tilt = 0; S.next = 0; S.cycle = 0;
+    S.narrow = window.innerWidth < 600;
+    S.scale = S.narrow ? 0.8 : 1;
+    var W = S.narrow ? 480 : 900, H = S.narrow ? 330 : 270;
+    var m = S.narrow ? 44 : 60, top = S.narrow ? 95 : 85, gap = S.narrow ? 60 : 45;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var xs = [], ys = [], i, a, b;
+    for (i = 0; i < 6; i++) xs.push(m + i * (W - 2 * m) / 5);
+    for (i = 0; i < 4; i++) ys.push(top + i * gap);
+
+    for (i = 0; i < 5; i++)
+      for (a = 0; a < 4; a++)
+        for (b = 0; b < 4; b++)
+          add('line', { 'class': 'edge', x1: xs[i], y1: ys[a], x2: xs[i + 1], y2: ys[b] });
+    for (i = 0; i < 6; i++)
+      for (a = 0; a < 4; a++)
+        if (a !== ROWS[i]) add('circle', { 'class': 'node', cx: xs[i], cy: ys[a], r: 5 });
+
+    var pts = [], cum = [0];
+    for (i = 0; i < 6; i++) pts.push({ x: xs[i], y: ys[ROWS[i]] });
+    for (i = 1; i < 6; i++) cum.push(cum[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
+    var L = cum[5], D = L - END_GAP;
+
+    var trail = add('polyline', { 'class': 'trail', points: pts.map(function (p) { return p.x + ',' + p.y; }).join(' ') });
+    trail.style.strokeDasharray = L;
+    add('circle', { 'class': 'start', cx: pts[0].x, cy: pts[0].y, r: 7 });
+
+    var hubs = [];
+    INTERESTS.forEach(function (it, n) {
+      var p = pts[n + 1];
+      var g = add('g', { 'class': 'hub', transform: 'translate(' + p.x + ',' + p.y + ')' });
+      add('circle', { 'class': 'ring', r: 17 }, g);
+      var ic = add('g', { 'class': 'icon' }, g);
+      ic.innerHTML = it.icon;
+      var t = add('text', { 'class': 'lbl', y: 34 }, g);
+      t.textContent = it.label;
+      hubs.push(g);
+    });
+
+    /* Smoke puffs (pooled), drawn behind the rider */
+    var puffs = [];
+    if (!reduce) {
+      for (i = 0; i < 46; i++) {
+        var c = add('circle', { 'class': 'puff', r: 1, cx: 0, cy: 0, opacity: 0 });
+        puffs.push({ el: c, on: false, born: 0, life: 1, x: 0, y: 0, r0: 2, grow: 8, vx: 0, vy: 0, a0: 0.4 });
+      }
+    }
+    function emit(ts, x, y, o) {
+      var q = null, oldest = puffs[0], k;
+      for (k = 0; k < puffs.length; k++) {
+        if (!puffs[k].on) { q = puffs[k]; break; }
+        if (puffs[k].born < oldest.born) oldest = puffs[k];
+      }
+      q = q || oldest;
+      q.on = true; q.born = ts; q.x = x; q.y = y;
+      q.life = o.life; q.r0 = o.r0; q.grow = o.grow; q.vx = o.vx; q.vy = o.vy; q.a0 = o.a0;
+    }
+    function stepPuffs(ts) {
+      for (var k = 0; k < puffs.length; k++) {
+        var q = puffs[k];
+        if (!q.on) continue;
+        var age = ts - q.born, u = age / q.life;
+        if (u >= 1) { q.on = false; q.el.setAttribute('opacity', 0); continue; }
+        q.el.setAttribute('cx', (q.x + q.vx * age).toFixed(1));
+        q.el.setAttribute('cy', (q.y + q.vy * age).toFixed(1));
+        q.el.setAttribute('r', (q.r0 + q.grow * u).toFixed(1));
+        q.el.setAttribute('opacity', (q.a0 * (1 - u) * (1 - u)).toFixed(3));
+      }
+    }
+    function world(lx, ly) {
+      var ang = S.tilt * Math.PI / 180, s = S.scale;
+      return { x: S.rx + s * (lx * Math.cos(ang) - ly * Math.sin(ang)), y: S.ry + s * (lx * Math.sin(ang) + ly * Math.cos(ang)) };
+    }
+
+    var rider = add('g', { 'class': 'rider' });
+    rider.innerHTML = RIDER;
+    var spins = rider.querySelectorAll('.spin');
+
+    function render(d, smooth, extraSpin) {
+      d = Math.max(0, Math.min(L, d));
+      trail.style.strokeDashoffset = L - d;
+      var s = 0;
+      while (s < 4 && d > cum[s + 1]) s++;
+      var f = (d - cum[s]) / (cum[s + 1] - cum[s]);
+      S.rx = pts[s].x + (pts[s + 1].x - pts[s].x) * f;
+      S.ry = pts[s].y + (pts[s + 1].y - pts[s].y) * f;
+      var target = Math.atan2(pts[s + 1].y - pts[s].y, pts[s + 1].x - pts[s].x) * 180 / Math.PI * 0.5;
+      S.tilt = smooth ? S.tilt + (target - S.tilt) * 0.12 : target;
+      rider.setAttribute('transform', 'translate(' + S.rx.toFixed(1) + ',' + S.ry.toFixed(1) + ') rotate(' + S.tilt.toFixed(1) + ') scale(' + S.scale + ')');
+      var spin = 'rotate(' + ((d * 360 / (2 * Math.PI * 10)) + (extraSpin || 0)).toFixed(1) + ')';
+      for (var k = 0; k < spins.length; k++) spins[k].setAttribute('transform', spin);
+      hubs.forEach(function (h, n) {
+        h.setAttribute('class', d >= cum[n + 1] - 34 ? 'hub on' : 'hub');
+      });
+    }
+
+    if (reduce) { render(D, false, 0); return; }
+
+    function frame(ts) {
+      if (S.t0 === null) S.t0 = ts;
+      var cyc = T_IDLE + T_TRAVEL + T_HOLD;
+      var t = (ts - S.t0) % cyc;
+      var ci = Math.floor((ts - S.t0) / cyc);
+      if (ci !== S.cycle) {
+        S.cycle = ci;
+        for (var k = 0; k < puffs.length; k++) { puffs[k].on = false; puffs[k].el.setAttribute('opacity', 0); }
+      }
+      var p = Math.max(0, Math.min(1, (t - T_IDLE) / T_TRAVEL));
+      var burnout = t < T_IDLE;
+      render(p * D, true, burnout ? t * 0.9 : 0);
+      if (ts >= S.next) {
+        var sc = S.scale, w;
+        if (burnout) {
+          w = world(-22, -1);
+          emit(ts, w.x, w.y, { life: 1200, r0: 3 * sc, grow: 16 * sc, vx: -0.012 * sc, vy: -0.01 * sc, a0: 0.75 });
+          S.next = ts + 40;
+        } else if (t < T_IDLE + T_TRAVEL) {
+          w = world(-33, -23);
+          emit(ts, w.x, w.y, { life: 1000, r0: 2 * sc, grow: 11 * sc, vx: -0.004 * sc, vy: -0.012 * sc, a0: 0.55 });
+          S.next = ts + 65;
+        }
+      }
+      stepPuffs(ts);
+      S.raf = requestAnimationFrame(frame);
+    }
+    S.raf = requestAnimationFrame(frame);
+  }
+
+  var timer;
+  window.addEventListener('resize', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      if ((window.innerWidth < 600) !== S.narrow) build();
+    }, 200);
+  });
+  build();
+})();
+</script>
 </body>
 </html>
