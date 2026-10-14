@@ -15,21 +15,6 @@
     --mask: #0E5A43; --mask-soft: #D5E6DC; --mask-dark: #0a4634; --on-mask: #fff;
     --edge: #A9BAB0; --wheel: #E0262A; --rider: #17231F; --tire: #17231F; --tire-edge: transparent; --smoke: #7F8F87;
   }
-  :root[data-theme="red"] {
-    --paper: #F2EDEA; --grid: #DDD3CF; --ink: #261A19; --muted: #6A5957;
-    --mask: #B3261E; --mask-soft: #F4DAD7; --mask-dark: #8E1D17; --on-mask: #fff;
-    --edge: #CDB7B3; --wheel: #E0262A; --rider: #261A19; --tire: #261A19; --smoke: #948381;
-  }
-  :root[data-theme="blue"] {
-    --paper: #EBEFF3; --grid: #D2DAE3; --ink: #16202B; --muted: #566472;
-    --mask: #1F4E9C; --mask-soft: #D6E2F5; --mask-dark: #173B78; --on-mask: #fff;
-    --edge: #B2BFD6; --wheel: #2F6FDB; --rider: #16202B; --tire: #16202B; --smoke: #7C8A9A;
-  }
-  :root[data-theme="mono"] {
-    --paper: #F1F1EF; --grid: #DADAD8; --ink: #111111; --muted: #5E5E5E;
-    --mask: #222222; --mask-soft: #E2E2E0; --mask-dark: #000000; --on-mask: #fff;
-    --edge: #BDBDBD; --wheel: #E0262A; --rider: #111111; --tire: #111111; --smoke: #8A8A8A;
-  }
   :root[data-theme="night"] {
     --paper: #12171A; --grid: #1E2528; --ink: #E6ECE9; --muted: #9AA7A1;
     --mask: #5FD3A8; --mask-soft: #1C2D27; --mask-dark: #86E3C0; --on-mask: #0B1210;
@@ -62,15 +47,8 @@
   nav a { margin-left: 22px; color: var(--ink); text-decoration: none; font-weight: 500; }
   nav a:hover { color: var(--mask); text-decoration: underline; }
 
-  .themes { display: flex; gap: 8px; align-items: center; width: 100%; justify-content: flex-end; }
-  .themes .lab { font-size: 0.85rem; color: var(--muted); margin-right: 4px; }
-  .themes button { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--ink); padding: 0; cursor: pointer; }
-  .themes button[aria-pressed="true"] { outline: 3px solid var(--mask); outline-offset: 2px; }
-  .themes button[data-theme="green"] { background: #0E5A43; }
-  .themes button[data-theme="red"] { background: #B3261E; }
-  .themes button[data-theme="blue"] { background: #1F4E9C; }
-  .themes button[data-theme="mono"] { background: linear-gradient(135deg, #111 50%, #fff 50%); }
-  .themes button[data-theme="night"] { background: #12171A; border-color: #9AA7A1; }
+  .mode { font: 500 0.9rem var(--body); color: var(--ink); background: transparent; border: 2px solid var(--ink); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+  .mode:hover { background: var(--mask-soft); }
 
   .hero { padding: 40px 0 32px; }
   .hero .tag { font-weight: 500; color: var(--mask); margin: 0 0 8px; }
@@ -79,6 +57,7 @@
     font-size: clamp(2.5rem, 8.5vw, 5rem);
     line-height: 1; letter-spacing: -0.03em; margin: 0 0 20px;
   }
+  .hero-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
   .hero p.lede { font-size: 1.2rem; max-width: 36em; margin: 0 0 24px; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -115,21 +94,35 @@
     .btn.alt { margin-left: 0; margin-top: 10px; }
     nav a { margin-left: 0; margin-right: 16px; }
     .entry { padding: 18px; }
-    .themes { justify-content: flex-start; }
   }
-  /* Hero: neural-network maze with a rider collecting interests */
-  .net { width: 100%; height: auto; display: block; margin: 12px 0 28px; overflow: visible; }
-  .net .edge { stroke: var(--edge); stroke-width: 1; opacity: 0.6; }
-  .net .node { fill: var(--paper); stroke: var(--edge); stroke-width: 1.5; }
-  .net .start { fill: var(--mask); }
-  .net .trail { fill: none; stroke: var(--mask); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
-  .net .ring { fill: var(--paper); stroke: var(--muted); stroke-width: 2; }
-  .net .icon { fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .net .lbl { font: 500 13px var(--body); fill: var(--ink); text-anchor: middle; opacity: 0; transition: opacity 0.4s; paint-order: stroke; stroke: var(--paper); stroke-width: 4px; }
-  .net .hub.on .ring { fill: var(--mask-soft); stroke: var(--mask); }
+  /* Hero: animated journey through interests (neural-network path) */
+  .net { width: 100%; height: auto; display: block; margin: 12px 0 8px; overflow: visible; }
+  .net .web { fill: none; stroke: var(--mask); stroke-width: 1.4; opacity: 0.35; stroke-linejoin: round; }
+  .net .wnode { fill: var(--paper); stroke: var(--mask); stroke-width: 1.4; opacity: 0.7; }
+  .net .base { fill: none; stroke: var(--mask); stroke-width: 3; opacity: 0.3; stroke-linejoin: round; stroke-linecap: round; }
+  .net .trail { fill: none; stroke: var(--mask); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--mask)); }
+  .net .pnode { fill: var(--paper); stroke: var(--mask); stroke-width: 2; }
+  .net .start rect { fill: var(--mask); }
+  .net .start text { fill: var(--on-mask); font: 700 12px var(--body); letter-spacing: 0.08em; text-anchor: middle; }
+  .net .ring { fill: var(--paper); stroke: var(--muted); stroke-width: 2.5; }
+  .net .icon { fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .net .lbl { font: 700 11px var(--body); letter-spacing: 0.06em; fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; opacity: 0; transform: scale(0.5); transform-box: fill-box; transform-origin: center; transition: opacity 0.3s, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .net .hub.on .ring { fill: var(--mask-soft); stroke: var(--mask); filter: drop-shadow(0 0 5px var(--mask)); }
   .net .hub.on .icon { stroke: var(--mask); }
-  .net .hub.on .lbl { opacity: 1; }
+  .net .hub.on .lbl, .net .golf.on .lbl { opacity: 1; transform: scale(1); }
+  .net .hub.on .ring { transform-box: fill-box; transform-origin: center; animation: hubpop 0.5s ease; }
+  @keyframes hubpop { 0% { transform: scale(1); } 50% { transform: scale(1.18); } 100% { transform: scale(1); } }
+  .net .mtn { fill: var(--mask-soft); stroke: var(--mask); stroke-width: 1; opacity: 0.55; }
+  .net .mtn2 { fill: var(--mask-soft); opacity: 0.45; }
+  .net .snow { fill: var(--paper); }
+  .net .lake { fill: var(--edge); opacity: 0.45; }
+  .net .pine { fill: var(--mask); opacity: 0.55; }
+  .net .grass { fill: var(--mask); opacity: 0.9; }
+  .net .pole { stroke: var(--ink); stroke-width: 1.6; }
+  .net .flag { fill: #E0262A; }
+  .net .ball { fill: #fff; stroke: var(--ink); stroke-width: 0.8; }
   .net .puff { fill: var(--smoke); }
+  .net .streak { stroke: var(--mask); stroke-width: 2.2; stroke-linecap: round; }
   .net .tire { fill: var(--tire); stroke: var(--tire-edge); stroke-width: 1; }
   .net .rim { fill: none; stroke: var(--wheel); stroke-width: 2.4; }
   .net .spoke { stroke: var(--wheel); stroke-width: 1; }
@@ -142,7 +135,11 @@
   .net .bline { fill: none; stroke: var(--tire); stroke-width: 2.6; stroke-linecap: round; }
   .net .rlimb { fill: none; stroke: var(--rider); stroke-linecap: round; stroke-linejoin: round; }
   .net .ri { fill: var(--rider); }
-  .net .rg { fill: var(--mask); }
+  .net .rarm { fill: none; stroke: #C08A63; stroke-linecap: round; }
+  .net .rstripe { fill: none; stroke: var(--mask); stroke-width: 1.8; stroke-linecap: round; }
+  .net .shoe { fill: #fff; stroke: var(--tire); stroke-width: 1; stroke-linejoin: round; }
+  .net .rh { fill: #F7F8F6; stroke: var(--tire); stroke-width: 1.2; }
+  .motto { text-align: right; max-width: none; margin: 0 0 8px; font-style: italic; color: var(--mask); font-size: 0.95rem; letter-spacing: 0.02em; }
 
 </style>
 </head>
@@ -159,24 +156,22 @@
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div class="themes" role="group" aria-label="Colour theme">
-      <span class="lab">Colour</span>
-      <button type="button" data-theme="green" aria-label="Green theme" title="Green"></button>
-      <button type="button" data-theme="red" aria-label="Red theme" title="Red"></button>
-      <button type="button" data-theme="blue" aria-label="Blue theme" title="Blue"></button>
-      <button type="button" data-theme="mono" aria-label="Black and white theme" title="Black and white"></button>
-      <button type="button" data-theme="night" aria-label="Night theme" title="Night"></button>
-    </div>
+    <button type="button" class="mode" aria-pressed="false">Night mode</button>
   </header>
 
   <main id="top">
     <div class="hero">
       <p class="tag">Electrical and Electronics Engineering Student</p>
       <h1>Kaelan Moodley</h1>
-      <svg id="net" class="net" viewBox="0 0 900 270" role="img" aria-label="An animated neural network maze. A muscular rider on a sport motorbike travels through nodes for gym, cars, outdoors, TV and movies, and golf."></svg>
+      <svg id="net" class="net" viewBox="0 0 1000 232" role="img" aria-label="An animated journey: a muscular rider on a sport motorbike travels a glowing path through engineering, build, food, gym, gaming and outdoors, ending at a golf green."></svg>
 
-      <a class="btn" href="#projects">See my projects</a>
-      <a class="btn alt" href="#contact">Get in touch</a>
+      <div class="hero-row">
+        <div>
+          <a class="btn" href="#projects">See my projects &rarr;</a>
+          <a class="btn alt" href="#contact">Get in touch</a>
+        </div>
+        <p class="motto">Build &rarr; Learn &rarr; Explore &rarr; Freedom</p>
+      </div>
     </div>
 
     <section id="about">
@@ -315,26 +310,23 @@
 </div>
 
 <script>
-/* Colour theme picker (remembers the choice on this device) */
+/* Night mode toggle (remembers the choice on this device) */
 (function () {
   var root = document.documentElement;
-  var buttons = document.querySelectorAll('.themes button');
-  function apply(name) {
-    root.setAttribute('data-theme', name);
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-theme') === name ? 'true' : 'false');
-    }
+  var btn = document.querySelector('.mode');
+  function apply(night) {
+    root.setAttribute('data-theme', night ? 'night' : 'green');
+    btn.setAttribute('aria-pressed', night ? 'true' : 'false');
+    btn.textContent = night ? 'Day mode' : 'Night mode';
   }
   var saved = null;
   try { saved = localStorage.getItem('theme'); } catch (e) {}
-  apply(saved || 'green');
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', function () {
-      var name = this.getAttribute('data-theme');
-      apply(name);
-      try { localStorage.setItem('theme', name); } catch (e) {}
-    });
-  }
+  apply(saved === 'night');
+  btn.addEventListener('click', function () {
+    var night = root.getAttribute('data-theme') !== 'night';
+    apply(night);
+    try { localStorage.setItem('theme', night ? 'night' : 'green'); } catch (e) {}
+  });
 })();
 </script>
 <script>
@@ -343,42 +335,66 @@
   if (!svg) return;
   var NS = 'http://www.w3.org/2000/svg';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ROWS = [1, 2, 0, 2, 1, 2];
-  var INTERESTS = [
-    { label: 'Gym', icon: '<path d="M-10 -3v6M-6 -6v12M-6 0h12M6 -6v12M10 -3v6"/>' },
-    { label: 'Cars', icon: '<path d="M-10 3v-4l3-1 3-4h8l3 4 3 1v4z"/><circle cx="-5" cy="4" r="2"/><circle cx="5" cy="4" r="2"/>' },
-    { label: 'Outdoors', icon: '<path d="M-11 7L-3 -5 1 1 4 -3 11 7z"/><circle cx="6" cy="-7" r="2"/>' },
-    { label: 'TV & movies', icon: '<rect x="-9" y="-2" width="18" height="10" rx="1.5"/><path d="M-9 -2l1-6h17v6M-3 -8l-2 6M3 -8l-2 6"/>' },
-    { label: 'Golf', icon: '<path d="M-1 9V-9l9 4-9 4M-9 9h18"/>' }
-  ];
 
-  /* Sport bike (white fairing, red wheels) with a broad-shouldered rider tucked in. Origin = ground contact point. */
+  var ICONS = {
+    eng: '<rect x="-6" y="-6" width="12" height="12" rx="1.5"/><rect x="-2.5" y="-2.5" width="5" height="5"/><path d="M-3 -9v3M3 -9v3M-3 6v3M3 6v3M-9 -3h3M-9 3h3M6 -3h3M6 3h3"/>',
+    cod: '<rect x="-9" y="-7" width="18" height="12" rx="1.5"/><path d="M-11 8H11M-3 -4l-3 3 3 3M3 -4l3 3-3 3"/>',
+    bld: '<circle r="6.2"/><circle r="2.4"/><path d="M0 -9V-6.2M0 6.2V9M-9 0H-6.2M6.2 0H9M-6.4 -6.4L-4.4 -4.4M4.4 4.4L6.4 6.4M-6.4 6.4L-4.4 4.4M4.4 -4.4L6.4 -6.4"/>',
+    food: '<path d="M-7 -9v6c0 2 1.5 3 3 3s3-1 3-3v-6M-4 0v9M5 9V-9c4 2 5 6 4 9H5"/>',
+    gym: '<path d="M-10 -3v6M-6 -6v12M-6 0h12M6 -6v12M10 -3v6"/>',
+    study: '<rect x="-9" y="-9" width="18" height="5" rx="1"/><rect x="-9" y="-2.5" width="18" height="5" rx="1"/><rect x="-9" y="4" width="18" height="5" rx="1"/>',
+    game: '<path d="M-6.5 -5H6.5C9.5 -5 11.5 -2 12 2C12.5 6 11 8 9 8C7.5 8 6.5 7 5.5 5.5H-5.5C-6.5 7 -7.5 8 -9 8C-11 8 -12.5 6 -12 2C-11.5 -2 -9.5 -5 -6.5 -5Z"/><path d="M-7 0h4M-5 -2v4"/><circle cx="4" cy="-1" r="1"/><circle cx="7.5" cy="1.500" r="1"/>',
+    out: '<path d="M-11 8L-3 -6 1 1 4 -3 11 8z"/>'
+  };
+  var NAMES = { eng: 'ENGINEERING', cod: 'CODING', bld: 'BUILD', food: 'FOOD', gym: 'GYM', study: 'STUDY', game: 'GAMING', out: 'OUTDOORS', golf: 'GOLF' };
+
+  var WIDE = {
+    W: 1000, H: 232, scale: 1.2, gap: 68, hubR: 22, side: false, scenery: true, travel: 9000,
+    pts: [[64,112],[108,112],[150,76],[186,112],[210,152],[262,118],[314,76],[350,112],[388,140],[455,118],[525,134],[600,152],[640,112],[690,72],[732,112],[775,160],[800,112],[832,70],[868,112],[912,116],[962,118]],
+    hubs: [[2,'eng'],[6,'bld'],[8,'food'],[11,'gym'],[15,'game'],[17,'out'],[20,'golf']],
+    decor: [
+      [[64,112],[100,150],[140,168],[210,152]], [[210,152],[250,190],[310,170],[388,140]],
+      [[388,140],[440,176],[510,190],[560,172],[600,152]], [[600,152],[650,188],[720,196],[775,160]],
+      [[775,160],[820,190],[880,168],[962,118]], [[150,76],[200,52],[250,70],[314,76]],
+      [[314,76],[360,48],[420,68],[455,118]], [[525,134],[570,96],[640,112]], [[690,72],[740,50],[790,68],[832,70]]
+    ]
+  };
+  var TALL = {
+    W: 420, H: 520, scale: 0.95, gap: 44, hubR: 22, side: true, scenery: false, travel: 9000,
+    pts: [[60,34],[330,96],[90,158],[330,220],[90,282],[330,344],[90,406],[330,468]],
+    hubs: [[1,'eng'],[2,'bld'],[3,'food'],[4,'gym'],[5,'game'],[6,'out'],[7,'golf']],
+    decor: []
+  };
+
   var WHEEL = '<g class="spin"><circle class="tire" r="10"/><circle class="rim" r="6.8"/>' +
     '<path class="spoke" d="M-6.8 0H6.8M0 -6.8V6.8M-4.8 -4.8L4.8 4.8M-4.8 4.8L4.8 -4.8"/><circle class="hubd" r="1.7"/></g>';
   var RIDER =
     '<g transform="translate(-22,-10)">' + WHEEL + '</g>' +
     '<g transform="translate(23,-10)">' + WHEEL + '</g>' +
     '<path class="bline" d="M-22 -10L-6 -13"/>' +
+    '<path class="bgold" d="M23 -10L22.5 -21"/>' +
     '<path class="bd" d="M-7 -13H11L9 -6H-5z"/>' +
     '<path class="bw" d="M-37 -30L-21 -27L-12 -22L-30 -21z"/>' +
     '<path class="bw" d="M-14 -22C-8 -33 6 -35 14 -31C19 -33 25 -30 29 -26C31 -23 29 -21 25 -21L8 -14L-6 -12z"/>' +
     '<path class="bd" d="M-4 -17L14 -19L22 -24L24 -22L12 -15L-4 -14z"/>' +
     '<path class="bred" d="M-5 -13L24 -20"/>' +
-    '<path class="bgold" d="M23 -10L22.5 -21"/>' +
     '<path class="bsil" d="M-9 -16L-30 -25L-31 -21.5L-10 -12z"/>' +
     '<path class="bd" d="M-25 -27L-11 -24L-13 -22L-23 -23z"/>' +
     '<path class="rlimb" stroke-width="6.5" d="M-13 -28L-2 -22L-8 -12"/>' +
     '<circle class="ri" cx="-9" cy="-26" r="5"/>' +
+    '<path class="shoe" d="M-12.500 -14.500C-9 -15.500 -6 -15 -4 -13C-2.500 -12 -2.500 -10.500 -4 -10L-12 -9.800z"/>' +
     '<path class="rlimb" stroke-width="13" d="M-13 -29L4 -41"/>' +
     '<circle class="ri" cx="5" cy="-42" r="7.2"/>' +
-    '<path class="rlimb" stroke-width="6.5" d="M5 -42L18 -33"/>' +
-    '<circle class="ri" cx="11" cy="-39" r="5"/>' +
-    '<circle class="rg" cx="18.5" cy="-33" r="2.6"/>' +
-    '<circle class="ri" cx="13" cy="-49" r="5.8"/>' +
-    '<path class="rg" d="M7.2 -49A5.8 5.8 0 0 1 18.8 -49z"/>';
+    '<path class="rlimb" stroke-width="7" d="M5 -42L18 -33"/>' +
+    '<circle class="ri" cx="11" cy="-39" r="5.2"/>' +
+    '<path class="rstripe" d="M13.200 -31.600L17.600 -38"/>' +
+    '<circle class="ri" cx="18.5" cy="-33" r="2.6"/>' +
+    '<circle class="rh" cx="13" cy="-49" r="5.9"/>' +
+    '<path class="ri" d="M14 -51.500H18.800C19 -49.500 18.500 -47.800 17 -47.200H14z"/>';
 
-  var T_IDLE = 1500, T_TRAVEL = 9000, T_HOLD = 2400, END_GAP = 30;
-  var S = { raf: 0, t0: null, narrow: null, tilt: 0, rx: 0, ry: 0, scale: 1, next: 0, cycle: 0 };
+  var SLEN = [70, 44, 86, 54, 66, 38];
+  var T_IDLE = 1500, T_HOLD = 2600, END_GAP = 34;
+  var S = { raf: 0, t0: null, mode: null, tilt: 0, face: 1, rx: 0, ry: 0, next: 0, cycle: 0 };
 
   function add(name, attrs, parent) {
     var e = document.createElementNS(NS, name);
@@ -386,56 +402,82 @@
     (parent || svg).appendChild(e);
     return e;
   }
+  function str(pts) { return pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' '); }
+
+  function scenery() {
+    var g = add('g', { 'class': 'scene' });
+    g.innerHTML =
+      '<path class="mtn2" d="M770 120L820 66L850 92L885 42L925 88L960 62L1000 120z"/>' +
+      '<path class="mtn" d="M850 120L912 20L975 120z"/>' +
+      '<path class="snow" d="M912 20L898 50L908 44L915 55L924 45L930 52z"/>' +
+      '<ellipse class="lake" cx="925" cy="122" rx="66" ry="9"/>' +
+      '<path class="pine" d="M790 122l6-18 6 18zM802 122l6-22 6 22zM814 122l6-16 6 16zM826 122l6-20 6 20zM838 122l6-15 6 15z"/>';
+  }
 
   function build() {
     if (S.raf) cancelAnimationFrame(S.raf);
-    S.t0 = null; S.tilt = 0; S.next = 0; S.cycle = 0;
-    S.narrow = window.innerWidth < 600;
-    S.scale = S.narrow ? 0.8 : 1;
-    var W = S.narrow ? 480 : 900, H = S.narrow ? 330 : 270;
-    var m = S.narrow ? 44 : 60, top = S.narrow ? 95 : 85, gap = S.narrow ? 60 : 45;
-    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var narrow = window.innerWidth < 640;
+    var Lx = narrow ? TALL : WIDE;
+    S.t0 = null; S.tilt = 0; S.face = 1; S.next = 0; S.cycle = 0; S.mode = narrow;
+    svg.setAttribute('viewBox', '0 0 ' + Lx.W + ' ' + Lx.H);
     while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var pts = Lx.pts, i;
 
-    var xs = [], ys = [], i, a, b;
-    for (i = 0; i < 6; i++) xs.push(m + i * (W - 2 * m) / 5);
-    for (i = 0; i < 4; i++) ys.push(top + i * gap);
-
-    for (i = 0; i < 5; i++)
-      for (a = 0; a < 4; a++)
-        for (b = 0; b < 4; b++)
-          add('line', { 'class': 'edge', x1: xs[i], y1: ys[a], x2: xs[i + 1], y2: ys[b] });
-    for (i = 0; i < 6; i++)
-      for (a = 0; a < 4; a++)
-        if (a !== ROWS[i]) add('circle', { 'class': 'node', cx: xs[i], cy: ys[a], r: 5 });
-
-    var pts = [], cum = [0];
-    for (i = 0; i < 6; i++) pts.push({ x: xs[i], y: ys[ROWS[i]] });
-    for (i = 1; i < 6; i++) cum.push(cum[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
-    var L = cum[5], D = L - END_GAP;
-
-    var trail = add('polyline', { 'class': 'trail', points: pts.map(function (p) { return p.x + ',' + p.y; }).join(' ') });
-    trail.style.strokeDasharray = L;
-    add('circle', { 'class': 'start', cx: pts[0].x, cy: pts[0].y, r: 7 });
-
-    var hubs = [];
-    INTERESTS.forEach(function (it, n) {
-      var p = pts[n + 1];
-      var g = add('g', { 'class': 'hub', transform: 'translate(' + p.x + ',' + p.y + ')' });
-      add('circle', { 'class': 'ring', r: 17 }, g);
-      var ic = add('g', { 'class': 'icon' }, g);
-      ic.innerHTML = it.icon;
-      var t = add('text', { 'class': 'lbl', y: 34 }, g);
-      t.textContent = it.label;
-      hubs.push(g);
+    if (Lx.scenery) scenery();
+    Lx.decor.forEach(function (d) {
+      add('polyline', { 'class': 'web', points: str(d) });
+      d.forEach(function (p) { add('circle', { 'class': 'wnode', cx: p[0], cy: p[1], r: 3.4 }); });
     });
 
-    /* Smoke puffs (pooled), drawn behind the rider */
+    var cum = [0];
+    for (i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    var L = cum[pts.length - 1], D = L - Lx.gap;
+
+    add('polyline', { 'class': 'base', points: str(pts) });
+    var trail = add('polyline', { 'class': 'trail', points: str(pts) });
+    trail.style.strokeDasharray = L;
+
+    var hubIdx = {};
+    Lx.hubs.forEach(function (h) { hubIdx[h[0]] = h[1]; });
+    for (i = 1; i < pts.length; i++) if (!hubIdx[i]) add('circle', { 'class': 'pnode', cx: pts[i][0], cy: pts[i][1], r: 4.5 });
+
+    var st = add('g', { 'class': 'start', transform: 'translate(' + (pts[0][0] - 24) + ',' + pts[0][1] + ')' });
+    add('rect', { x: -26, y: -11, width: 52, height: 22, rx: 11 }, st);
+    add('text', { y: 4.200 }, st).textContent = 'START';
+
+    var hubs = [], golf = null;
+    Lx.hubs.forEach(function (h) {
+      var p = pts[h[0]], k = h[1];
+      if (k === 'golf') {
+        golf = add('g', { 'class': 'golf', transform: 'translate(' + p[0] + ',' + (p[1] + 8) + ')' });
+        golf.innerHTML = '<ellipse class="grass" cx="0" cy="8" rx="34" ry="12"/><path class="pole" d="M8 8V-30"/><path class="flag" d="M8 -30l20 6-20 6z"/><circle class="ball" cx="-12" cy="7" r="2.4"/>';
+        var gl = add('text', { 'class': 'lbl', y: 34, 'text-anchor': 'middle' }, golf);
+        gl.textContent = NAMES.golf;
+        if (Lx.side) { gl.setAttribute('x', -60); gl.setAttribute('y', 12); gl.setAttribute('text-anchor', 'end'); }
+        return;
+      }
+      var g = add('g', { 'class': 'hub', transform: 'translate(' + p[0] + ',' + p[1] + ')' });
+      add('circle', { 'class': 'ring', r: Lx.hubR }, g);
+      var ic = add('g', { 'class': 'icon', transform: 'scale(1.2)' }, g);
+      ic.innerHTML = ICONS[k];
+      var t = add('text', { 'class': 'lbl' }, g);
+      t.textContent = NAMES[k];
+      if (Lx.side) {
+        var right = p[0] < Lx.W / 2;
+        t.setAttribute('x', right ? Lx.hubR + 10 : -(Lx.hubR + 10));
+        t.setAttribute('y', 4);
+        t.setAttribute('text-anchor', right ? 'start' : 'end');
+      } else {
+        t.setAttribute('y', Lx.hubR + 17);
+        t.setAttribute('text-anchor', 'middle');
+      }
+      hubs.push({ g: g, at: cum[h[0]] });
+    });
+
     var puffs = [];
     if (!reduce) {
       for (i = 0; i < 46; i++) {
-        var c = add('circle', { 'class': 'puff', r: 1, cx: 0, cy: 0, opacity: 0 });
-        puffs.push({ el: c, on: false, born: 0, life: 1, x: 0, y: 0, r0: 2, grow: 8, vx: 0, vy: 0, a0: 0.4 });
+        puffs.push({ el: add('circle', { 'class': 'puff', r: 1, cx: 0, cy: 0, opacity: 0 }), on: false, born: 0, life: 1, x: 0, y: 0, r0: 2, grow: 8, vx: 0, vy: 0, a0: 0.4 });
       }
     }
     function emit(ts, x, y, o) {
@@ -452,64 +494,72 @@
       for (var k = 0; k < puffs.length; k++) {
         var q = puffs[k];
         if (!q.on) continue;
-        var age = ts - q.born, u = age / q.life;
+        var u = (ts - q.born) / q.life;
         if (u >= 1) { q.on = false; q.el.setAttribute('opacity', 0); continue; }
-        q.el.setAttribute('cx', (q.x + q.vx * age).toFixed(1));
-        q.el.setAttribute('cy', (q.y + q.vy * age).toFixed(1));
+        q.el.setAttribute('cx', (q.x + q.vx * (ts - q.born)).toFixed(1));
+        q.el.setAttribute('cy', (q.y + q.vy * (ts - q.born)).toFixed(1));
         q.el.setAttribute('r', (q.r0 + q.grow * u).toFixed(1));
         q.el.setAttribute('opacity', (q.a0 * (1 - u) * (1 - u)).toFixed(3));
       }
     }
     function world(lx, ly) {
-      var ang = S.tilt * Math.PI / 180, s = S.scale;
-      return { x: S.rx + s * (lx * Math.cos(ang) - ly * Math.sin(ang)), y: S.ry + s * (lx * Math.sin(ang) + ly * Math.cos(ang)) };
+      var ang = S.tilt * Math.PI / 180, sx = S.face * Lx.scale * lx, sy = Lx.scale * ly;
+      return { x: S.rx + sx * Math.cos(ang) - sy * Math.sin(ang), y: S.ry + sx * Math.sin(ang) + sy * Math.cos(ang) };
     }
 
     var rider = add('g', { 'class': 'rider' });
-    rider.innerHTML = RIDER;
+    var streakG = add('g', {}, rider), streaks = [], ys = [-46, -38, -30, -22, -14, -6];
+    ys.forEach(function (y) { streaks.push(add('line', { 'class': 'streak', x1: -40, y1: y, x2: -90, y2: y, opacity: 0 }, streakG)); });
+    var bike = add('g', {}, rider);
+    bike.innerHTML = RIDER;
     var spins = rider.querySelectorAll('.spin');
 
-    function render(d, smooth, extraSpin) {
+    function render(d, smooth, extraSpin, ts, moving) {
       d = Math.max(0, Math.min(L, d));
       trail.style.strokeDashoffset = L - d;
       var s = 0;
-      while (s < 4 && d > cum[s + 1]) s++;
+      while (s < pts.length - 2 && d > cum[s + 1]) s++;
       var f = (d - cum[s]) / (cum[s + 1] - cum[s]);
-      S.rx = pts[s].x + (pts[s + 1].x - pts[s].x) * f;
-      S.ry = pts[s].y + (pts[s + 1].y - pts[s].y) * f;
-      var target = Math.atan2(pts[s + 1].y - pts[s].y, pts[s + 1].x - pts[s].x) * 180 / Math.PI * 0.5;
-      S.tilt = smooth ? S.tilt + (target - S.tilt) * 0.12 : target;
-      rider.setAttribute('transform', 'translate(' + S.rx.toFixed(1) + ',' + S.ry.toFixed(1) + ') rotate(' + S.tilt.toFixed(1) + ') scale(' + S.scale + ')');
+      var dx = pts[s + 1][0] - pts[s][0], dy = pts[s + 1][1] - pts[s][1];
+      S.rx = pts[s][0] + dx * f; S.ry = pts[s][1] + dy * f;
+      var face = dx >= 0 ? 1 : -1;
+      var target = (face === 1 ? Math.atan2(dy, dx) : Math.atan2(-dy, -dx)) * 180 / Math.PI * 0.5;
+      if (face !== S.face) { S.face = face; S.tilt = target; } else { S.tilt = smooth ? S.tilt + (target - S.tilt) * 0.12 : target; }
+      rider.setAttribute('transform', 'translate(' + S.rx.toFixed(1) + ',' + S.ry.toFixed(1) + ') rotate(' + S.tilt.toFixed(1) + ') scale(' + (face * Lx.scale) + ',' + Lx.scale + ')');
       var spin = 'rotate(' + ((d * 360 / (2 * Math.PI * 10)) + (extraSpin || 0)).toFixed(1) + ')';
       for (var k = 0; k < spins.length; k++) spins[k].setAttribute('transform', spin);
-      hubs.forEach(function (h, n) {
-        h.setAttribute('class', d >= cum[n + 1] - 34 ? 'hub on' : 'hub');
-      });
+      for (k = 0; k < streaks.length; k++) {
+        var len = moving ? SLEN[k] * (0.65 + 0.35 * Math.sin((ts || 0) * 0.02 + k * 1.7)) : 0;
+        streaks[k].setAttribute('x2', (-40 - len).toFixed(1));
+        streaks[k].setAttribute('opacity', moving ? 0.55 : 0);
+      }
+      hubs.forEach(function (h) { h.g.setAttribute('class', d >= h.at - 24 ? 'hub on' : 'hub'); });
+      if (golf) golf.setAttribute('class', d >= D - 1 ? 'golf on' : 'golf');
     }
 
-    if (reduce) { render(D, false, 0); return; }
+    if (reduce) { render(D, false, 0, 0, false); return; }
 
     function frame(ts) {
       if (S.t0 === null) S.t0 = ts;
-      var cyc = T_IDLE + T_TRAVEL + T_HOLD;
+      var cyc = T_IDLE + Lx.travel + T_HOLD;
       var t = (ts - S.t0) % cyc;
       var ci = Math.floor((ts - S.t0) / cyc);
       if (ci !== S.cycle) {
         S.cycle = ci;
         for (var k = 0; k < puffs.length; k++) { puffs[k].on = false; puffs[k].el.setAttribute('opacity', 0); }
       }
-      var p = Math.max(0, Math.min(1, (t - T_IDLE) / T_TRAVEL));
-      var burnout = t < T_IDLE;
-      render(p * D, true, burnout ? t * 0.9 : 0);
+      var p = Math.max(0, Math.min(1, (t - T_IDLE) / Lx.travel));
+      var burnout = t < T_IDLE, riding = !burnout && t < T_IDLE + Lx.travel;
+      render(p * D, true, burnout ? t * 0.9 : 0, ts, riding);
       if (ts >= S.next) {
-        var sc = S.scale, w;
+        var sc = Lx.scale, w;
         if (burnout) {
           w = world(-22, -1);
-          emit(ts, w.x, w.y, { life: 1200, r0: 3 * sc, grow: 16 * sc, vx: -0.012 * sc, vy: -0.01 * sc, a0: 0.75 });
+          emit(ts, w.x, w.y, { life: 1200, r0: 3 * sc, grow: 16 * sc, vx: -0.012 * sc * S.face, vy: -0.01 * sc, a0: 0.75 });
           S.next = ts + 40;
-        } else if (t < T_IDLE + T_TRAVEL) {
+        } else if (riding) {
           w = world(-33, -23);
-          emit(ts, w.x, w.y, { life: 1000, r0: 2 * sc, grow: 11 * sc, vx: -0.004 * sc, vy: -0.012 * sc, a0: 0.55 });
+          emit(ts, w.x, w.y, { life: 1000, r0: 2 * sc, grow: 11 * sc, vx: -0.004 * sc * S.face, vy: -0.012 * sc, a0: 0.5 });
           S.next = ts + 65;
         }
       }
@@ -523,7 +573,7 @@
   window.addEventListener('resize', function () {
     clearTimeout(timer);
     timer = setTimeout(function () {
-      if ((window.innerWidth < 600) !== S.narrow) build();
+      if ((window.innerWidth < 640) !== S.mode) build();
     }, 200);
   });
   build();
